@@ -32,11 +32,10 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent {
-                docker {
-                    args '-v $(pwd)/sources:/src'
-                    image 'cdrx/pyinstaller-linux:python2'
-                }
+            agent any
+            environment { 
+                VOLUME = '$(pwd)/sources:/src'
+                IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
                 dir(path: env.BUILD_ID) {
